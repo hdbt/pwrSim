@@ -1,5 +1,4 @@
-# Add this at the top of the file (after any library calls but before functions)
-# Suppress NSE notes from R CMD check for ggplot2
+#' @importFrom graphics abline legend
 utils::globalVariables(c("n_subj", "power"))
 
 #' Calculate Required Sample Size for Target Power
