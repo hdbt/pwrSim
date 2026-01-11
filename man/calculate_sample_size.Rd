@@ -18,10 +18,14 @@ calculate_sample_size(
   verbose = TRUE
 )
 }
+\description{
+This function helps determine the number of subjects needed to achieve
+a target power level for a specific effect in a mixed effects model.
+}
 \arguments{
-\item{target_power}{Numeric.  Desired power level (e.g., 0.80 for 80% power).}
+\item{target_power}{Numeric.  Desired power level (e.g., 0.80 for 80\% power).}
 
-\item{effect_name}{Character. Name of the effect to power for.}
+\item{effect_name}{Character. Name of the effect to power for. }
 
 \item{n_obs_per_subj}{Integer. Number of observations per subject.}
 
@@ -31,16 +35,16 @@ calculate_sample_size(
 
 \item{residual_sd}{Numeric. Standard deviation of residual error.  Default is 1.}
 
-\item{n_subj_range}{Integer vector of length 2. Range of sample sizes to test.
+\item{n_subj_range}{Integer vector of length 2. Range of sample sizes to test. 
 Default is c(10, 100).}
 
 \item{n_sim}{Integer. Number of simulations per sample size. Default is 1000.}
 
 \item{alpha}{Numeric. Significance level. Default is 0.05.}
 
-\item{seed}{Integer. Random seed for reproducibility. Default is NULL.}
+\item{seed}{Integer. Random seed for reproducibility. Default is NULL. }
 
-\item{verbose}{Logical.  Whether to print progress. Default is TRUE.}
+\item{verbose}{Logical. Whether to print progress.  Default is TRUE.}
 }
 \value{
 A list with class "pwrSim_sample_size" containing:
@@ -50,10 +54,6 @@ A list with class "pwrSim_sample_size" containing:
   \item{results}{Data frame with power estimates for each sample size}
   \item{effect_name}{Name of the effect that was powered}
 }
-}
-\description{
-This function helps determine the number of subjects needed to achieve
-a target power level for a specific effect in a mixed effects model.
 }
 \examples{
 \dontrun{
@@ -74,5 +74,4 @@ ss_result <- calculate_sample_size(
 print(ss_result)
 plot(ss_result)
 }
-
 }

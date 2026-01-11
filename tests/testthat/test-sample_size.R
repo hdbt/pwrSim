@@ -18,8 +18,8 @@ test_that("calculate_sample_size works with basic input", {
   expect_true("target_power" %in% names(result))
   expect_true("recommended_n" %in% names(result))
   expect_true("results" %in% names(result))
-  expect_equal(result$target_power, 0.80)
-  expect_equal(result$effect_name, "effect1")
+  expect_identical(result$target_power, 0.80)
+  expect_identical(result$effect_name, "effect1")
 })
 
 
