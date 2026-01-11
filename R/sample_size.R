@@ -248,7 +248,7 @@ plot.pwrSim_sample_size <- function(x, ...) {
     
     legend("bottomright",
            legend = c(sprintf("Target power: %. 2f", x$target_power),
-                     if (!is. na(x$recommended_n)) 
+                     if (!is.na(x$recommended_n)) 
                        sprintf("Recommended n: %d", x$recommended_n) 
                      else NULL),
            lty = c(2, if (!is.na(x$recommended_n)) 2 else NULL),
