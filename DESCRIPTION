@@ -30,3 +30,4 @@ Suggests:
 VignetteBuilder: knitr
 URL: https://github.com/hdbt/pwrSim
 BugReports: https://github.com/hdbt/pwrSim/issues
+Lifecycle: experimental

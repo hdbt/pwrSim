@@ -2,6 +2,8 @@
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/hdbt/pwrSim/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/hdbt/pwrSim/actions/workflows/R-CMD-check.yaml)
+[![Codecov test coverage](https://codecov.io/gh/hdbt/pwrSim/branch/main/graph/badge.svg)](https://app.codecov.io/gh/hdbt/pwrSim?branch=main)
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 <!-- badges: end -->
 
 ## Power Analysis for Mixed Effects Models via Simulation
