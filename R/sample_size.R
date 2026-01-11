@@ -1,20 +1,24 @@
+# Add this at the top of the file (after any library calls but before functions)
+# Suppress NSE notes from R CMD check for ggplot2
+utils::globalVariables(c("n_subj", "power"))
+
 #' Calculate Required Sample Size for Target Power
 #'
 #' This function helps determine the number of subjects needed to achieve
 #' a target power level for a specific effect in a mixed effects model.
 #'
-#' @param target_power Numeric. Desired power level (e.g., 0.80 for 80% power).
+#' @param target_power Numeric.  Desired power level (e.g., 0.80 for 80% power).
 #' @param effect_name Character. Name of the effect to power for.
-#' @param n_obs_per_subj Integer. Number of observations per subject.
+#' @param n_obs_per_subj Integer. Number of observations per subject. 
 #' @param fixed_effects Named numeric vector. Fixed effect coefficients.
 #' @param random_effects Named numeric vector. Random effect standard deviations.
-#' @param residual_sd Numeric. Standard deviation of residual error. Default is 1.
+#' @param residual_sd Numeric. Standard deviation of residual error.  Default is 1.
 #' @param n_subj_range Integer vector of length 2. Range of sample sizes to test.
 #'   Default is c(10, 100).
 #' @param n_sim Integer. Number of simulations per sample size. Default is 1000.
 #' @param alpha Numeric. Significance level. Default is 0.05.
-#' @param seed Integer. Random seed for reproducibility. Default is NULL.
-#' @param verbose Logical. Whether to print progress. Default is TRUE.
+#' @param seed Integer. Random seed for reproducibility. Default is NULL. 
+#' @param verbose Logical.  Whether to print progress. Default is TRUE.
 #'
 #' @return A list with class "pwrSim_sample_size" containing:
 #' \describe{
@@ -61,7 +65,7 @@ calculate_sample_size <- function(target_power,
   if (target_power <= 0 || target_power >= 1) {
     stop("target_power must be between 0 and 1")
   }
-  if (!effect_name %in% names(fixed_effects)) {
+  if (! effect_name %in% names(fixed_effects)) {
     stop(sprintf("effect_name '%s' not found in fixed_effects", effect_name))
   }
   if (length(n_subj_range) != 2 || n_subj_range[1] >= n_subj_range[2]) {
@@ -72,7 +76,7 @@ calculate_sample_size <- function(target_power,
   n_subj_seq <- seq(n_subj_range[1], n_subj_range[2], by = 5)
   
   if (verbose) {
-    message(sprintf("Testing sample sizes from %d to %d subjects...",
+    message(sprintf("Testing sample sizes from %d to %d subjects.. .",
                    n_subj_range[1], n_subj_range[2]))
   }
   
@@ -85,7 +89,7 @@ calculate_sample_size <- function(target_power,
   
   for (n in n_subj_seq) {
     if (verbose) {
-      message(sprintf("  Testing n = %d...", n))
+      message(sprintf("  Testing n = %d.. .", n))
     }
     
     power_result <- simulate_power(
@@ -96,7 +100,7 @@ calculate_sample_size <- function(target_power,
       residual_sd = residual_sd,
       n_sim = n_sim,
       alpha = alpha,
-      seed = if (!is.null(seed)) seed + n else NULL,
+      seed = if (! is.null(seed)) seed + n else NULL,
       verbose = FALSE
     )
     
@@ -134,7 +138,7 @@ calculate_sample_size <- function(target_power,
     if (verbose) {
       message(sprintf("\nTarget power of %.2f not achieved in tested range.",
                      target_power))
-      message(sprintf("Maximum power observed: %.3f at n = %d",
+      message(sprintf("Maximum power observed:  %.3f at n = %d",
                      max(results$power), 
                      results$n_subj[which.max(results$power)]))
       message("Consider increasing n_subj_range or adjusting effect sizes.")
@@ -195,7 +199,7 @@ print.pwrSim_sample_size <- function(x, ...) {
 #' Plot Power Curve
 #'
 #' Creates a power curve plot showing the relationship between sample size
-#' and statistical power.
+#' and statistical power. 
 #'
 #' @param x Object of class "pwrSim_sample_size" from calculate_sample_size()
 #' @param ... Additional arguments passed to plot
@@ -219,7 +223,7 @@ plot.pwrSim_sample_size <- function(x, ...) {
       ggplot2::theme_minimal() +
       ggplot2::theme(
         plot.title = ggplot2::element_text(hjust = 0.5, face = "bold"),
-        plot.caption = ggplot2::element_text(hjust = 0.5)
+        plot.caption = ggplot2:: element_text(hjust = 0.5)
       )
     
     if (!is.na(x$recommended_n)) {
@@ -243,8 +247,8 @@ plot.pwrSim_sample_size <- function(x, ...) {
     }
     
     legend("bottomright",
-           legend = c(sprintf("Target power: %.2f", x$target_power),
-                     if (!is.na(x$recommended_n)) 
+           legend = c(sprintf("Target power: %. 2f", x$target_power),
+                     if (!is. na(x$recommended_n)) 
                        sprintf("Recommended n: %d", x$recommended_n) 
                      else NULL),
            lty = c(2, if (!is.na(x$recommended_n)) 2 else NULL),
