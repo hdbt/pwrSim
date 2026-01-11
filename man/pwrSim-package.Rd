@@ -42,7 +42,7 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Your Name \email{your.email@example.com}
+\strong{Maintainer}: Hamid Bulut \email{hamid.bulut@uni.lu}
 
 }
 \keyword{internal}
