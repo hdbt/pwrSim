@@ -25,8 +25,8 @@ Suggests:
     testthat (>= 3.0.0),
     knitr,
     rmarkdown,
-    ggplot2
-    waldo
+    ggplot2,
+    waldo (>= 0.3.0)
 VignetteBuilder: knitr
 URL: https://github.com/hdbt/pwrSim
 BugReports: https://github.com/hdbt/pwrSim/issues

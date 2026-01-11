@@ -1,4 +1,6 @@
 #' @importFrom graphics abline legend
+NULL
+
 utils::globalVariables(c("n_subj", "power"))
 
 #' Calculate Required Sample Size for Target Power
@@ -6,7 +8,7 @@ utils::globalVariables(c("n_subj", "power"))
 #' This function helps determine the number of subjects needed to achieve
 #' a target power level for a specific effect in a mixed effects model.
 #'
-#' @param target_power Numeric.  Desired power level (e.g., 0.80 for 80% power).
+#' @param target_power Numeric.  Desired power level (e.g., 0.80 for 80 percent power).
 #' @param effect_name Character. Name of the effect to power for.
 #' @param n_obs_per_subj Integer. Number of observations per subject. 
 #' @param fixed_effects Named numeric vector. Fixed effect coefficients.
@@ -19,13 +21,11 @@ utils::globalVariables(c("n_subj", "power"))
 #' @param seed Integer. Random seed for reproducibility. Default is NULL. 
 #' @param verbose Logical.  Whether to print progress. Default is TRUE.
 #'
-#' @return A list with class "pwrSim_sample_size" containing:
-#' \describe{
-#'   \item{target_power}{Target power level}
-#'   \item{recommended_n}{Recommended sample size}
-#'   \item{results}{Data frame with power estimates for each sample size}
-#'   \item{effect_name}{Name of the effect that was powered}
-#' }
+#' @return A list with class `"pwrSim_sample_size"` containing:
+#' - `target_power`: Target power level.
+#' - `recommended_n`: Recommended sample size.
+#' - `results`: Data frame with power estimates for each sample size.
+#' - `effect_name`: Name of the effect that was powered.
 #'
 #' @examples
 #' \dontrun{
