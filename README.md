@@ -11,11 +11,19 @@ The `pwrSim` package provides tools for estimating statistical power through sim
 ## Features
 
 - **Simulation-based power analysis** for mixed effects models
-- **Support for interaction effects** between predictors
 - **Flexible random effect structures** (random intercepts and slopes)
-- **Sample size determination** for target power levels
 - **Parallel processing** for faster simulations
-- **Comprehensive documentation** with examples and vignettes
+
+## Planned Features
+
+- **Support for generalized mixed models (GLMMs)** (e.g., logistic, Poisson)
+- **Automatic extraction from fitted models** (e.g., build simulation settings from an existing `lme4::lmer()` / `glmer()` object)
+- **More flexible design specification** (unbalanced designs, varying observations per subject, crossed/nested random effects)
+- **Power curves and design grids** (batch evaluation across sample sizes/effect sizes with tidy outputs)
+- **Multiple-testing adjustments and decision rules** (e.g., family-wise error control when testing several fixed effects)
+- **Better reporting and export** (Quarto/knitr-ready summaries, tables, and plots; optional JSON/CSV export)
+- **Reproducibility helpers** (automatic seed handling, session info capture, deterministic parallel backends)
+
 
 ## Installation
 
@@ -63,7 +71,7 @@ print(result)
 
 ```r
 # Find required sample size for 80% power
-ss_result <- calculate_sample_size(
+result <- calculate_sample_size(
   target_power = 0.80,
   effect_name = "interaction",
   n_obs_per_subj = 20,
@@ -73,8 +81,8 @@ ss_result <- calculate_sample_size(
   n_sim = 500
 )
 
-print(ss_result)
-plot(ss_result)
+print(result)
+plot(result)
 ```
 
 ## Documentation
