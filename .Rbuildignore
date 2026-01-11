@@ -1,1 +1,3 @@
 ^\.github$
+^cran-comments\.md$
+^examples$
