@@ -89,19 +89,20 @@ If you use this package in your research, please cite:
 ```
 To cite pwrSim in publications use:
 
-  [Bulut et al.] (2025). pwrSim: Power Analysis for Mixed Effects Models
+  Bulut (2025). pwrSim: Power Analysis for Mixed Effects Models
   via Simulation. R package version 0.1.0.
   https://github.com/hdbt/pwrSim
 
 A BibTeX entry for LaTeX users is:
 
-  @Manual{,
-    title = {pwrSim: Power Analysis for Mixed Effects Models via Simulation},
-    author = {[Hamid Bulut]},
-    year = {2025},
-    note = {R package version 0.1.0},
-    url = {https://github.com/hdbt/pwrSim},
-  }
+@Manual{Bulut2025pwrSim,
+  title  = {pwrSim: Power Analysis for Mixed Effects Models via Simulation},
+  author = {Hamid Bulut},
+  year   = {2025},
+  note   = {R package version 0.1.0},
+  url    = {https://github.com/hdbt/pwrSim}
+}
+
 ```
 
 ## Contributing
