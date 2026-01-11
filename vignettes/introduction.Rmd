@@ -1,0 +1,193 @@
+---
+title: "Introduction to pwrSim"
+author: "pwrSim Package Authors"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction to pwrSim}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.width = 7,
+  fig.height = 5
+)
+```
+
+## Overview
+
+The `pwrSim` package provides tools for estimating statistical power through simulation for mixed effects models with interactions. This vignette demonstrates the main functions and typical workflows.
+
+## Installation
+
+```{r eval=FALSE}
+# Install from GitHub
+# devtools::install_github("hdbt/pwrSim")
+library(pwrSim)
+```
+
+```{r}
+library(pwrSim)
+```
+
+## Basic Power Analysis
+
+The main function `simulate_power()` estimates power for a given experimental design. You need to specify:
+
+- Number of subjects (`n_subj`)
+- Number of observations per subject (`n_obs_per_subj`)
+- Fixed effects (including interactions)
+- Random effects (standard deviations)
+- Residual standard deviation
+
+### Simple Example with Interaction
+
+Let's estimate power for a study with:
+- 30 subjects
+- 20 observations per subject
+- Two main effects and their interaction
+- Random intercepts and slopes
+
+```{r example1, eval=FALSE}
+# Define effect sizes
+fixed_effects <- c(
+  intercept = 5.0,      # Overall mean
+  effect1 = 0.5,        # Main effect 1
+  effect2 = 0.3,        # Main effect 2
+  interaction = 0.4     # Interaction effect
+)
+
+# Define random effects (as standard deviations)
+random_effects <- c(
+  subj_intercept = 1.0,  # Random intercept SD
+  subj_slope = 0.5       # Random slope SD
+)
+
+# Run power analysis
+result <- simulate_power(
+  n_subj = 30,
+  n_obs_per_subj = 20,
+  fixed_effects = fixed_effects,
+  random_effects = random_effects,
+  residual_sd = 1.5,
+  n_sim = 1000,
+  seed = 123
+)
+
+# View results
+print(result)
+summary(result)
+```
+
+## Interpreting Results
+
+The output shows:
+- **Power estimates**: Proportion of simulations where each effect was significant
+- **Convergence rate**: Proportion of models that converged successfully
+- **Study design parameters**: Sample size and effect specifications
+
+Power of 0.80 (80%) is typically considered adequate for most research.
+
+## Sample Size Determination
+
+Use `calculate_sample_size()` to find the number of subjects needed for a target power level:
+
+```{r sample_size, eval=FALSE}
+# Find sample size for 80% power on the interaction effect
+ss_result <- calculate_sample_size(
+  target_power = 0.80,
+  effect_name = "interaction",
+  n_obs_per_subj = 20,
+  fixed_effects = fixed_effects,
+  random_effects = random_effects,
+  residual_sd = 1.5,
+  n_subj_range = c(20, 60),
+  n_sim = 500,
+  seed = 456
+)
+
+print(ss_result)
+
+# Visualize power curve
+plot(ss_result)
+```
+
+## Parallel Processing
+
+For large simulations, enable parallel processing:
+
+```{r parallel, eval=FALSE}
+result_parallel <- simulate_power(
+  n_subj = 30,
+  n_obs_per_subj = 20,
+  fixed_effects = fixed_effects,
+  random_effects = random_effects,
+  residual_sd = 1.5,
+  n_sim = 5000,
+  parallel = TRUE,
+  n_cores = 4,
+  seed = 789
+)
+```
+
+## Understanding Effect Sizes
+
+Choosing appropriate effect sizes is crucial:
+
+- **Small effects**: Cohen's d ≈ 0.2
+- **Medium effects**: Cohen's d ≈ 0.5
+- **Large effects**: Cohen's d ≈ 0.8
+
+For mixed models, effect sizes depend on:
+- Between-subject variability (random intercept SD)
+- Within-subject variability (residual SD)
+- Random slope variability
+
+## Tips for Power Analysis
+
+1. **Use realistic effect sizes**: Base them on pilot data or literature
+2. **Consider multiple scenarios**: Test optimistic and conservative estimates
+3. **Account for attrition**: Plan for participant dropout
+4. **Check convergence**: Low convergence rates suggest model misspecification
+5. **Use sufficient simulations**: At least 1000 for stable estimates
+
+## Advanced: Custom Formulas
+
+You can specify custom model formulas:
+
+```{r custom_formula, eval=FALSE}
+result_custom <- simulate_power(
+  n_subj = 25,
+  n_obs_per_subj = 15,
+  fixed_effects = fixed_effects,
+  random_effects = random_effects,
+  formula = "y ~ x1 * x2 + (1 + x1 | subj_id)",
+  n_sim = 500
+)
+```
+
+## Detailed Results
+
+Access simulation details for further analysis:
+
+```{r details, eval=FALSE}
+# Get detailed results from each simulation
+head(result$detailed_results)
+
+# Calculate confidence intervals for power estimates
+power_ci <- t.test(result$detailed_results$interaction_sig)$conf.int
+cat("95% CI for interaction power:", power_ci, "\n")
+```
+
+## Conclusion
+
+The `pwrSim` package provides flexible tools for power analysis in mixed effects models. Key functions:
+
+- `simulate_power()`: Estimate power for a given design
+- `calculate_sample_size()`: Find required sample size
+
+For more information, see the function documentation with `?simulate_power` and `?calculate_sample_size`.
